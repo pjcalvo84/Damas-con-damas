@@ -1,6 +1,7 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -45,7 +46,7 @@ public class GameWithDraughtsTest {
         when(board.getPiece(target)).thenReturn(new Piece(Color.WHITE));
         game.move(origin, target);
         verify(board).remove(target);
-        verify(board).put(any(Coordinate.class), any(Draught.class));
+        verify(board).put(eq(target), any(Draught.class));
     }
 
     @Test
@@ -62,7 +63,7 @@ public class GameWithDraughtsTest {
         game.move(origin, target);
         verify(board).remove(origin.betweenDiagonal(target));
         verify(board).remove(target);
-        verify(board).put(any(Coordinate.class), any(Draught.class));
+        verify(board).put(eq(target), any(Draught.class));
     }
 
     @Test
@@ -78,6 +79,6 @@ public class GameWithDraughtsTest {
         when(board.getPiece(target)).thenReturn(new Piece(Color.BLACK));
         game.move(origin, target);
         verify(board).remove(target);
-        verify(board).put(any(Coordinate.class), any(Draught.class));
+        verify(board).put(eq(target), any(Draught.class));
     }
 }
