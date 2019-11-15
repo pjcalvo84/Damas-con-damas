@@ -61,8 +61,11 @@ public class GameWithDraughtsTest {
         when(board.remove(origin)).thenReturn(new Piece(Color.WHITE));
 
         when(board.getPiece(target)).thenReturn(new Piece(Color.WHITE));
+
+        Draught.addDraught();
+        Draught.addDraught();
         game.move(origin, target);
-        verify(board).remove(target);
+        verify(board, never()).remove(target);
         verify(board, never()).put(eq(target), any(Draught.class));
     }
 
