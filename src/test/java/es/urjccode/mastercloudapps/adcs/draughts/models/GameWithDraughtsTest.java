@@ -2,8 +2,7 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 
@@ -32,7 +31,7 @@ public class GameWithDraughtsTest {
     }
 
     @Test
-    public void testGivenGameWhenWhitePawnAtLimitThenNewDraugts(){
+    public void testGivenGameWhenWhitePawnAtLimitThenNewDraughts(){
         Coordinate origin = new Coordinate(1,0);
         Coordinate target = new Coordinate(0,1);
         
@@ -47,6 +46,24 @@ public class GameWithDraughtsTest {
         game.move(origin, target);
         verify(board).remove(target);
         verify(board).put(eq(target), any(Draught.class));
+    }
+
+    @Test
+    public void testGivenGameWhenWhitePawnAtLimitThenPawn(){
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(0,1);
+
+        when (turn.getColor()).thenReturn(Color.WHITE);
+        when(board.isEmpty(origin)).thenReturn(false);
+        when(board.getColor(origin)).thenReturn(Color.WHITE);
+        when(board.getPiece(origin)).thenReturn(piece);
+        when(piece.isCorrect(origin, target, board)).thenReturn(null);
+        when(board.remove(origin)).thenReturn(new Piece(Color.WHITE));
+
+        when(board.getPiece(target)).thenReturn(new Piece(Color.WHITE));
+        game.move(origin, target);
+        verify(board).remove(target);
+        verify(board, never()).put(eq(target), any(Draught.class));
     }
 
     @Test
