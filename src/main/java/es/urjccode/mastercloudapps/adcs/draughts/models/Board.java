@@ -32,7 +32,8 @@ class Board implements PieceProvider {
         return this.getSquare(coordinate).remove();
     }
 
-    public void remove(Coordinate origin, Coordinate target) {
+    public List<Coordinate> findPieces(Coordinate origin, Coordinate target){
+        List<Coordinate> pieceList = new ArrayList<>();
         int  row = origin.getRow();
         int  column = origin.getColumn();
 
@@ -41,14 +42,20 @@ class Board implements PieceProvider {
         while(row != target.getRow() && column != target.getColumn()){
 
             if(this.getPiece(new Coordinate(row, column)) != null){
-                this.remove(new Coordinate(row, column));
-            }
+                pieceList.add(new Coordinate(row, column));
+             }
             row = calculateNewRow(origin, target, row);
             column = calculateNewColumn(origin, target, column);
         }
+        return pieceList;
     }
 
-    private int  calculateNewRow(Coordinate origin, Coordinate target, int row){
+    public void remove(Coordinate origin, Coordinate target) {
+        if(findPieces(origin,target).size()>0)
+            this.remove(findPieces(origin,target).get(0));
+    }
+
+    private int calculateNewRow(Coordinate origin, Coordinate target, int row){
         if(origin.getRow() > target.getRow()){
             return --row;
         }
@@ -57,7 +64,7 @@ class Board implements PieceProvider {
         }
     }
 
-    private int  calculateNewColumn(Coordinate origin, Coordinate target, int column){
+    private int calculateNewColumn(Coordinate origin, Coordinate target, int column){
         if(origin.getColumn() > target.getColumn()){
             return --column;
         }

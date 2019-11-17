@@ -26,7 +26,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public Error checkEatingEmpty(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
+    public Error checkEating(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
         int distance = origin.diagonalDistance(target);
         if (distance == Pawn.MAX_DISTANCE) {
             if (pieceProvider.getPiece(origin.betweenDiagonal(target)) == null) {

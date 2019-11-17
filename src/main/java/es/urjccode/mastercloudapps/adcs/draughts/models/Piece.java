@@ -15,7 +15,7 @@ public abstract class Piece {
 
 	public abstract Error checkBadDistance(Coordinate origin, Coordinate target);
 
-	public abstract Error checkEatingEmpty(Coordinate origin, Coordinate target, PieceProvider pieceProvider);
+	public abstract Error checkEating(Coordinate origin, Coordinate target, PieceProvider pieceProvider);
 
 	public abstract boolean createADraught();
 
@@ -35,8 +35,8 @@ public abstract class Piece {
 			return checkBadDistance(origin, target);
 		}
 
-		if(checkEatingEmpty(origin, target, pieceProvider) != null) {
-			return checkEatingEmpty(origin, target, pieceProvider);
+		if(checkEating(origin, target, pieceProvider) != null) {
+			return checkEating(origin, target, pieceProvider);
 		}
 
 		return null;

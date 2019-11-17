@@ -252,6 +252,26 @@ public class GameTest {
     }
 
     @Test
+    public void testGivenGameWhenMoveTwoSquareDraughtAndEatingTwoPieceThenError(){
+        initCountDraughts();
+        GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.
+                add("        ").
+                add("  n     ").
+                add(" n      ").
+                add("B       ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ");
+        game = gameBuilder.builder();
+        assertEquals(Error.BAD_EATING,
+                this.advance(new Coordinate[][] {
+                        { new Coordinate(3, 0), new Coordinate(0, 3) }, }));
+
+    }
+
+    @Test
     public void testGivenGameWhenMoveDraughtToLimitThenOneDraught(){
         initCountDraughts();
         GameBuilder gameBuilder = new GameBuilder();

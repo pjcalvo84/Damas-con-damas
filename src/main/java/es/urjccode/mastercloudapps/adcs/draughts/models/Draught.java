@@ -42,7 +42,10 @@ class Draught extends Piece {
     }
 
     @Override
-    public Error checkEatingEmpty(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
+    public Error checkEating(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
+
+        if(pieceProvider.findPieces(origin, target).size() > 1)
+            return Error.BAD_EATING;
         return null;
     }
 
