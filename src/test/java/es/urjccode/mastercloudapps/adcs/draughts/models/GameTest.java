@@ -223,6 +223,31 @@ public class GameTest {
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
         assertThat(game.getPiece(target).getColor(), is(Color.WHITE));
+        assertThat(game.getPiece(new Coordinate(2,1)), is(nullValue()));
+
+    }
+
+    @Test
+    public void testGivenGameWhenMoveTwoSquareDraughtAndEatingOnePieceThenEating(){
+        initCountDraughts();
+        GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.
+                add("        ").
+                add("  n     ").
+                add("        ").
+                add("B       ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ");
+        game = gameBuilder.builder();
+        Coordinate origin = new Coordinate(3,0);
+        Coordinate target = new Coordinate(0,3);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(game.getPiece(target).getColor(), is(Color.WHITE));
+        assertThat(game.getPiece(new Coordinate(1,2)), is(nullValue()));
 
     }
 
