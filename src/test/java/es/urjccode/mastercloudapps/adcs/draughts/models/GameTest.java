@@ -1,8 +1,10 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.eq;
 
 public class GameTest {
 
@@ -133,6 +135,96 @@ public class GameTest {
                     { new Coordinate(5, 6), new Coordinate(4, 7) },
                     { new Coordinate(2, 3), new Coordinate(3, 2) },
                     { new Coordinate(5, 0), new Coordinate(2, 3) }, }));
+    }
+
+    @Test
+    public void testGivenGameWhenMovePanwToLimitThenNewDraught(){
+        GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.
+                add("        ").
+                add("b       ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ");
+        game = gameBuilder.builder();
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(0,1);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(Draught.canCreateNewDraught(), is(true));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveTwoPanwToLimitThenTwoNewDraught(){
+        GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.
+                add("        ").
+                add("b b n   ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ");
+        game = gameBuilder.builder();
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(0,1);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(Draught.canCreateNewDraught(), is(true));
+        origin = new Coordinate(1,4);
+        target = new Coordinate(2,3);
+        game.move(origin,target);
+        origin = new Coordinate(1,2);
+        target = new Coordinate(0,3);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(Draught.canCreateNewDraught(), is(true));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveThreePanwToLimitThenError(){
+        GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.
+                add("        ").
+                add("b b n b ").
+                add(" n      ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ");
+        game = gameBuilder.builder();
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(0,1);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(Draught.canCreateNewDraught(), is(true));
+        origin = new Coordinate(1,4);
+        target = new Coordinate(2,3);
+        game.move(origin,target);
+        origin = new Coordinate(1,2);
+        target = new Coordinate(0,3);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(Draught.canCreateNewDraught(), is(true));
+        origin = new Coordinate(2,1);
+        target = new Coordinate(3,2);
+        game.move(origin,target);
+        origin = new Coordinate(1,6);
+        target = new Coordinate(0,7);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), not(instanceOf(Draught.class)));
+        assertThat(Draught.canCreateNewDraught(), is(false));
     }
 
 }
