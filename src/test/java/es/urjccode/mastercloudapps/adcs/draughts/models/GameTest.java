@@ -185,11 +185,11 @@ public class GameTest {
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
-        assertThat(Draught.canCreateNewDraught(), is(true));
+        assertThat(Draught.canCreateNewDraught(), is(false));
     }
 
     @Test
-    public void testGivenGameWhenMoveThreePanwToLimitThenError(){
+    public void testGivenGameWhenMoveThreePanwToLimitThenTwoDraughtAndOnePawn(){
         GameBuilder gameBuilder = new GameBuilder();
         gameBuilder.
                 add("        ").
@@ -215,7 +215,7 @@ public class GameTest {
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
-        assertThat(Draught.canCreateNewDraught(), is(true));
+        assertThat(Draught.canCreateNewDraught(), is(false));
         origin = new Coordinate(2,1);
         target = new Coordinate(3,2);
         game.move(origin,target);

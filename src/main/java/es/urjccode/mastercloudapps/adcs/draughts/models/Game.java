@@ -50,6 +50,7 @@ public class Game {
 		if (this.board.getPiece(target).isLimit(target) && Draught.canCreateNewDraught()){
 			this.board.remove(target);
 			this.board.put(target, new Draught(Color.WHITE));
+			Draught.addDraught();
 		}
 		this.turn.change();
 	}
