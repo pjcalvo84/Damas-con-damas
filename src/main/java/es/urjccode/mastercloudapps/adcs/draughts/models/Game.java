@@ -47,10 +47,11 @@ public class Game {
 			this.board.remove(origin.betweenDiagonal(target));
 		}
 		this.board.move(origin, target);
-		if (this.board.getPiece(target).isLimit(target) && Draught.canCreateNewDraught()){
-			this.board.remove(target);
-			this.board.put(target, new Draught(Color.WHITE));
-			Draught.addDraught();
+		if (this.board.getPiece(target).isLimit(target) && Draught.canCreateNewDraught(board.getPiece(target).getColor())){
+			Color color = board.getPiece(target).getColor();
+		    this.board.remove(target);
+			this.board.put(target, new Draught(color));
+			Draught.addDraught(color);
 		}
 		this.turn.change();
 	}

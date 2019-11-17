@@ -1,5 +1,7 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -139,6 +141,7 @@ public class GameTest {
 
     @Test
     public void testGivenGameWhenMovePanwToLimitThenNewDraught(){
+        initCountDraughts();
         GameBuilder gameBuilder = new GameBuilder();
         gameBuilder.
                 add("        ").
@@ -155,11 +158,12 @@ public class GameTest {
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
-        assertThat(Draught.canCreateNewDraught(), is(true));
+        assertThat(Draught.canCreateNewDraught(game.getPiece(target).getColor()), is(true));
     }
 
     @Test
     public void testGivenGameWhenMoveTwoPanwToLimitThenTwoNewDraught(){
+        initCountDraughts();
         GameBuilder gameBuilder = new GameBuilder();
         gameBuilder.
                 add("        ").
@@ -176,7 +180,7 @@ public class GameTest {
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
-        assertThat(Draught.canCreateNewDraught(), is(true));
+        assertThat(Draught.canCreateNewDraught(game.getPiece(target).getColor()), is(true));
         origin = new Coordinate(1,4);
         target = new Coordinate(2,3);
         game.move(origin,target);
@@ -185,11 +189,12 @@ public class GameTest {
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
-        assertThat(Draught.canCreateNewDraught(), is(false));
+        assertThat(Draught.canCreateNewDraught(game.getPiece(target).getColor()), is(false));
     }
 
     @Test
     public void testGivenGameWhenMoveTwoWhitePanwAndOneBlackToLimitThenThreeNewDraught(){
+        initCountDraughts();
         GameBuilder gameBuilder = new GameBuilder();
         gameBuilder.
                 add("        ").
@@ -206,23 +211,24 @@ public class GameTest {
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
-        assertThat(Draught.canCreateNewDraught(), is(true));
+        assertThat(Draught.canCreateNewDraught(game.getPiece(target).getColor()), is(true));
         origin = new Coordinate(6,7);
         target = new Coordinate(7,6);
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
-        assertThat(Draught.canCreateNewDraught(), is(true));
+        assertThat(Draught.canCreateNewDraught(game.getPiece(target).getColor()), is(true));
         origin = new Coordinate(1,2);
         target = new Coordinate(0,3);
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
-        assertThat(Draught.canCreateNewDraught(), is(false));
+        assertThat(Draught.canCreateNewDraught(game.getPiece(target).getColor()), is(false));
     }
 
     @Test
     public void testGivenGameWhenMoveThreePanwToLimitThenTwoDraughtAndOnePawn(){
+        initCountDraughts();
         GameBuilder gameBuilder = new GameBuilder();
         gameBuilder.
                 add("        ").
@@ -239,7 +245,7 @@ public class GameTest {
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
-        assertThat(Draught.canCreateNewDraught(), is(true));
+        assertThat(Draught.canCreateNewDraught(game.getPiece(target).getColor()), is(true));
         origin = new Coordinate(1,4);
         target = new Coordinate(2,3);
         game.move(origin,target);
@@ -248,7 +254,7 @@ public class GameTest {
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
-        assertThat(Draught.canCreateNewDraught(), is(false));
+        assertThat(Draught.canCreateNewDraught(game.getPiece(target).getColor()), is(false));
         origin = new Coordinate(2,1);
         target = new Coordinate(3,2);
         game.move(origin,target);
@@ -257,7 +263,13 @@ public class GameTest {
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), not(instanceOf(Draught.class)));
-        assertThat(Draught.canCreateNewDraught(), is(false));
+        assertThat(Draught.canCreateNewDraught(game.getPiece(target).getColor()), is(false));
     }
 
+    public void initCountDraughts(){
+        Draught.lessDraught(Color.WHITE);
+        Draught.lessDraught(Color.WHITE);
+        Draught.lessDraught(Color.BLACK);
+        Draught.lessDraught(Color.BLACK);
+    }
 }

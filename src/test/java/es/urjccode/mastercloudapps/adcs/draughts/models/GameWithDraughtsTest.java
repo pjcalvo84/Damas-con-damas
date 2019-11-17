@@ -62,8 +62,8 @@ public class GameWithDraughtsTest {
 
         when(board.getPiece(target)).thenReturn(new Piece(Color.WHITE));
 
-        Draught.addDraught();
-        Draught.addDraught();
+        Draught.addDraught(game.getPiece(target).getColor());
+        Draught.addDraught(game.getPiece(target).getColor());
         game.move(origin, target);
         verify(board, never()).remove(target);
         verify(board, never()).put(eq(target), any(Draught.class));
