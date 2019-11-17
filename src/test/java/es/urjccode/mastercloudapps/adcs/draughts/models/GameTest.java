@@ -189,6 +189,39 @@ public class GameTest {
     }
 
     @Test
+    public void testGivenGameWhenMoveTwoWhitePanwAndOneBlackToLimitThenThreeNewDraught(){
+        GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.
+                add("        ").
+                add("b b     ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("       n").
+                add("        ");
+        game = gameBuilder.builder();
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(0,1);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(Draught.canCreateNewDraught(), is(true));
+        origin = new Coordinate(6,7);
+        target = new Coordinate(7,6);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(Draught.canCreateNewDraught(), is(true));
+        origin = new Coordinate(1,2);
+        target = new Coordinate(0,3);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(Draught.canCreateNewDraught(), is(false));
+    }
+
+    @Test
     public void testGivenGameWhenMoveThreePanwToLimitThenTwoDraughtAndOnePawn(){
         GameBuilder gameBuilder = new GameBuilder();
         gameBuilder.
