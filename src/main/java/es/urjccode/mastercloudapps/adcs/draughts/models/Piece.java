@@ -10,6 +10,17 @@ public abstract class Piece {
 		this.color = color;
 	}
 
+
+	public abstract Error checkIsAdvanced(Coordinate origin, Coordinate target);
+
+	public abstract Error checkBadDistance(Coordinate origin, Coordinate target);
+
+	public abstract Error checkEatingEmpty(Coordinate origin, Coordinate target, PieceProvider pieceProvider);
+
+	public abstract boolean createADraught();
+
+	public abstract int getMaxDistance();
+
 	Error isCorrect(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
 		if (!origin.isDiagonal(target)) {
 			return Error.NOT_DIAGONAL;
@@ -30,12 +41,6 @@ public abstract class Piece {
 
 		return null;
 	}
-
-	public abstract Error checkIsAdvanced(Coordinate origin, Coordinate target);
-	public abstract Error checkBadDistance(Coordinate origin, Coordinate target);
-
-	public abstract Error checkEatingEmpty(Coordinate origin, Coordinate target, PieceProvider pieceProvider);
-	public abstract boolean createADraught();
 
 	boolean isLimit(Coordinate coordinate){
 		return coordinate.getRow()== 0 && this.getColor() == Color.WHITE ||

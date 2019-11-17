@@ -2,6 +2,7 @@ package es.urjccode.mastercloudapps.adcs.draughts.models;
 
 class Draught extends Piece {
 
+    private static final int MAX_DISTANCE = 7;
     private static int numberWhitePieces = 0;
     private static int numberBlackPieces = 0;
 
@@ -48,6 +49,11 @@ class Draught extends Piece {
     @Override
     public boolean createADraught() {
         return false;
+    }
+
+    @Override
+    public int getMaxDistance() {
+        return MAX_DISTANCE;
     }
 
 }

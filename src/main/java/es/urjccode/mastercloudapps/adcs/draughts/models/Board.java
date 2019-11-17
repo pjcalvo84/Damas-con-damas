@@ -32,6 +32,40 @@ class Board implements PieceProvider {
         return this.getSquare(coordinate).remove();
     }
 
+    public void remove(Coordinate origin, Coordinate target) {
+        int  row = origin.getRow();
+        int  column = origin.getColumn();
+
+        row = calculateNewRow(origin, target, row);
+        column = calculateNewColumn(origin, target, column);
+        while(row != target.getRow() && column != target.getColumn()){
+
+            if(this.getPiece(new Coordinate(row, column)) != null){
+                this.remove(new Coordinate(row, column));
+            }
+            row = calculateNewRow(origin, target, row);
+            column = calculateNewColumn(origin, target, column);
+        }
+    }
+
+    private int  calculateNewRow(Coordinate origin, Coordinate target, int row){
+        if(origin.getRow() > target.getRow()){
+            return --row;
+        }
+        else{
+            return ++row;
+        }
+    }
+
+    private int  calculateNewColumn(Coordinate origin, Coordinate target, int column){
+        if(origin.getColumn() > target.getColumn()){
+            return --column;
+        }
+        else{
+            return ++column;
+        }
+    }
+
     void move(Coordinate origin, Coordinate target) {
         this.put(target, this.remove(origin));
     }

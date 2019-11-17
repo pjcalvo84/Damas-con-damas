@@ -40,4 +40,9 @@ public class Pawn extends Piece {
     public boolean createADraught() {
         return true;
     }
+
+    @Override
+    public int getMaxDistance() {
+        return MAX_DISTANCE;
+    }
 }
