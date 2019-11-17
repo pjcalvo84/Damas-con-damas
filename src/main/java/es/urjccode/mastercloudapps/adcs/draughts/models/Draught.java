@@ -31,21 +31,7 @@ class Draught extends Piece {
     }
 
     @Override
-    Error isCorrect(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
-        if (!origin.isDiagonal(target)) {
-            return Error.NOT_DIAGONAL;
-        }
-        if (!pieceProvider.isEmpty(target)) {
-            return Error.NOT_EMPTY_TARGET;
-        }
-        if (!this.isAdvanced(origin, target)) {
-            return Error.NOT_ADVANCED;
-        }
-        /*if (distance == Piece.MAX_DISTANCE) {
-            if (pieceProvider.getPiece(origin.betweenDiagonal(target)) == null) {
-                return Error.EATING_EMPTY;
-            }
-        }*/
+    public Error checkIsAvanced(Coordinate origin, Coordinate target) {
         return null;
     }
 

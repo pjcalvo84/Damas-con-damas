@@ -162,7 +162,7 @@ public class GameTest {
     }
 
     @Test
-    public void testGivenGameWhenMoveDraughtMultipleSquareThenNotError(){
+    public void testGivenGameWhenMoveDraughtFordwardMultipleSquareThenNotError(){
         initCountDraughts();
         GameBuilder gameBuilder = new GameBuilder();
         gameBuilder.
@@ -177,6 +177,27 @@ public class GameTest {
         game = gameBuilder.builder();
         Coordinate origin = new Coordinate(5,0);
         Coordinate target = new Coordinate(2,3);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+    }
+
+    @Test
+    public void testGivenGameWhenMoveDraughtMoveBackMultipleSquareThenNotError(){
+        initCountDraughts();
+        GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.
+                add("        ").
+                add("B       ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ");
+        game = gameBuilder.builder();
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(5,4);
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));

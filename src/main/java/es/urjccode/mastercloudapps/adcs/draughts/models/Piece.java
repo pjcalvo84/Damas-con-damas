@@ -17,26 +17,21 @@ public abstract class Piece {
 		if (!pieceProvider.isEmpty(target)) {
 			return Error.NOT_EMPTY_TARGET;
 		}
-		if (!this.isAdvanced(origin, target)) {
-			return Error.NOT_ADVANCED;
+		if(checkIsAvanced(origin, target) != null) {
+			return checkIsAvanced(origin, target);
 		}
-		/*int distance = origin.diagonalDistance(target);
-		if (distance > Piece.MAX_DISTANCE) {
-			return Error.BAD_DISTANCE;
-		}*/
-		if(checkBadDistance(origin,target) != null)
-			return checkBadDistance(origin,target);
+		if(checkBadDistance(origin,target) != null) {
+			return checkBadDistance(origin, target);
+		}
 
-		if(checkEatingEmpty(origin, target, pieceProvider) != null)
+		if(checkEatingEmpty(origin, target, pieceProvider) != null) {
 			return checkEatingEmpty(origin, target, pieceProvider);
-		/*if (distance == Piece.MAX_DISTANCE) {
-			if (pieceProvider.getPiece(origin.betweenDiagonal(target)) == null) {
-				return Error.EATING_EMPTY;
-			}
-		}*/
+		}
+
 		return null;
 	}
 
+	public abstract Error checkIsAvanced(Coordinate origin, Coordinate target);
 	public abstract Error checkBadDistance(Coordinate origin, Coordinate target);
 
 	public abstract Error checkEatingEmpty(Coordinate origin, Coordinate target, PieceProvider pieceProvider);

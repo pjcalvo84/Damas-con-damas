@@ -9,6 +9,14 @@ public class Pawn extends Piece {
     }
 
     @Override
+    public Error checkIsAvanced(Coordinate origin, Coordinate target) {
+        if (!this.isAdvanced(origin, target)) {
+            return Error.NOT_ADVANCED;
+        }
+        return null;
+    }
+
+    @Override
     public Error checkBadDistance(Coordinate origin, Coordinate target) {
         int distance = origin.diagonalDistance(target);
         if (distance > Pawn.MAX_DISTANCE) {
