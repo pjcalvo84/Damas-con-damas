@@ -7,7 +7,7 @@ import java.util.List;
 public class GameBuilder {
     List<String> stringList;
     List<String> characters = Arrays.asList(" ", "b", "n", "B", "N");
-    Piece[] pieces = {null, new Piece(Color.WHITE), new Piece(Color.BLACK), new Draught(Color.WHITE), new Draught(Color.BLACK)};
+    Piece[] pieces = {null, new Pawn(Color.WHITE), new Pawn(Color.BLACK), new Draught(Color.WHITE), new Draught(Color.BLACK)};
 
     public GameBuilder(){
         stringList = new ArrayList<>(8);

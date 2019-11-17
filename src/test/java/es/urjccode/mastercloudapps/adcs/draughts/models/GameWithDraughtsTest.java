@@ -32,6 +32,7 @@ public class GameWithDraughtsTest {
 
     @Test
     public void testGivenGameWhenWhitePawnAtLimitThenNewDraughts(){
+        initCountDraughts();
         Coordinate origin = new Coordinate(1,0);
         Coordinate target = new Coordinate(0,1);
         
@@ -40,9 +41,9 @@ public class GameWithDraughtsTest {
         when(board.getColor(origin)).thenReturn(Color.WHITE);
         when(board.getPiece(origin)).thenReturn(piece);
         when(piece.isCorrect(origin, target, board)).thenReturn(null);
-        when(board.remove(origin)).thenReturn(new Piece(Color.WHITE));
+        when(board.remove(origin)).thenReturn(new Pawn(Color.WHITE));
         
-        when(board.getPiece(target)).thenReturn(new Piece(Color.WHITE));
+        when(board.getPiece(target)).thenReturn(new Pawn(Color.WHITE));
         game.move(origin, target);
         verify(board).remove(target);
         verify(board).put(eq(target), any(Draught.class));
@@ -50,6 +51,7 @@ public class GameWithDraughtsTest {
 
     @Test
     public void testGivenGameWhenWhitePawnAtLimitThenPawn(){
+        initCountDraughts();
         Coordinate origin = new Coordinate(1,0);
         Coordinate target = new Coordinate(0,1);
 
@@ -58,9 +60,9 @@ public class GameWithDraughtsTest {
         when(board.getColor(origin)).thenReturn(Color.WHITE);
         when(board.getPiece(origin)).thenReturn(piece);
         when(piece.isCorrect(origin, target, board)).thenReturn(null);
-        when(board.remove(origin)).thenReturn(new Piece(Color.WHITE));
+        when(board.remove(origin)).thenReturn(new Pawn(Color.WHITE));
 
-        when(board.getPiece(target)).thenReturn(new Piece(Color.WHITE));
+        when(board.getPiece(target)).thenReturn(new Pawn(Color.WHITE));
 
         Draught.addDraught(game.getPiece(target).getColor());
         Draught.addDraught(game.getPiece(target).getColor());
@@ -71,6 +73,7 @@ public class GameWithDraughtsTest {
 
     @Test
     public void testGivenGameWhenPawnAtLimitAndEatingThenNewDraugts(){
+        initCountDraughts();
         Coordinate origin = new Coordinate(2,1);
         Coordinate target = new Coordinate(0,3);
         when (turn.getColor()).thenReturn(Color.WHITE);
@@ -78,27 +81,18 @@ public class GameWithDraughtsTest {
         when(board.getColor(origin)).thenReturn(Color.WHITE);
         when(board.getPiece(origin)).thenReturn(piece);
         when(piece.isCorrect(origin, target, board)).thenReturn(null);
-        when(board.remove(origin)).thenReturn(new Piece(Color.WHITE));
-        when(board.getPiece(target)).thenReturn(new Piece(Color.WHITE));
+        when(board.remove(origin)).thenReturn(new Pawn(Color.WHITE));
+        when(board.getPiece(target)).thenReturn(new Pawn(Color.WHITE));
         game.move(origin, target);
         verify(board).remove(origin.betweenDiagonal(target));
         verify(board).remove(target);
         verify(board).put(eq(target), any(Draught.class));
     }
 
-    @Test
-    public void testGivenGameWhenBlackPawnAtLimitThenNewDraugts(){
-        Coordinate origin = new Coordinate(6,3);
-        Coordinate target = new Coordinate(7,2);
-        when (turn.getColor()).thenReturn(Color.BLACK);
-        when(board.isEmpty(origin)).thenReturn(false);
-        when(board.getColor(origin)).thenReturn(Color.BLACK);
-        when(board.getPiece(origin)).thenReturn(piece);
-        when(piece.isCorrect(origin, target, board)).thenReturn(null);
-        when(board.remove(origin)).thenReturn(new Piece(Color.BLACK));
-        when(board.getPiece(target)).thenReturn(new Piece(Color.BLACK));
-        game.move(origin, target);
-        verify(board).remove(target);
-        verify(board).put(eq(target), any(Draught.class));
+    public void initCountDraughts(){
+        Draught.lessDraught(Color.WHITE);
+        Draught.lessDraught(Color.WHITE);
+        Draught.lessDraught(Color.BLACK);
+        Draught.lessDraught(Color.BLACK);
     }
 }

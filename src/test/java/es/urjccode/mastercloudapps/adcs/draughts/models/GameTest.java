@@ -162,21 +162,21 @@ public class GameTest {
     }
 
     @Test
-    public void testGivenGameWhenMoveDraughtToLimitThenNotError(){
+    public void testGivenGameWhenMoveDraughtMultipleSquareThenNotError(){
         initCountDraughts();
         GameBuilder gameBuilder = new GameBuilder();
         gameBuilder.
                 add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
                 add("B       ").
-                add("        ").
-                add("        ").
-                add("        ").
-                add("        ").
                 add("        ").
                 add("        ");
         game = gameBuilder.builder();
-        Coordinate origin = new Coordinate(1,0);
-        Coordinate target = new Coordinate(4,3);
+        Coordinate origin = new Coordinate(5,0);
+        Coordinate target = new Coordinate(2,3);
         game.move(origin,target);
         assertThat(game.getPiece(origin), is(nullValue()));
         assertThat(game.getPiece(target), instanceOf(Draught.class));
