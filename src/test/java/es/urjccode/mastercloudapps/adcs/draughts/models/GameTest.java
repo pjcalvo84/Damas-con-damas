@@ -204,6 +204,54 @@ public class GameTest {
     }
 
     @Test
+    public void testGivenGameWhenMoveDraughtAndEatingOnePieceThenEating(){
+        initCountDraughts();
+        GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.
+                add("        ").
+                add("        ").
+                add(" n      ").
+                add("B       ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ");
+        game = gameBuilder.builder();
+        Coordinate origin = new Coordinate(3,0);
+        Coordinate target = new Coordinate(1,2);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(game.getPiece(target).getColor(), is(Color.WHITE));
+
+    }
+
+    @Test
+    public void testGivenGameWhenMoveDraughtToLimitThenOneDraught(){
+        initCountDraughts();
+        GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.
+                add("        ").
+                add("B       ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ");
+        game = gameBuilder.builder();
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(0,1);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+        assertThat(game.getPiece(target).getColor(), is(Color.WHITE));
+        assertThat(Draught.canCreateNewDraught(game.getPiece(target).getColor()), is(true));
+
+    }
+
+
+    @Test
     public void testGivenGameWhenMoveTwoPanwToLimitThenTwoNewDraught(){
         initCountDraughts();
         GameBuilder gameBuilder = new GameBuilder();

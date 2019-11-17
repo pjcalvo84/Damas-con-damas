@@ -31,7 +31,7 @@ class Draught extends Piece {
     }
 
     @Override
-    public Error checkIsAvanced(Coordinate origin, Coordinate target) {
+    public Error checkIsAdvanced(Coordinate origin, Coordinate target) {
         return null;
     }
 

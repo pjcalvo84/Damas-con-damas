@@ -17,8 +17,8 @@ public abstract class Piece {
 		if (!pieceProvider.isEmpty(target)) {
 			return Error.NOT_EMPTY_TARGET;
 		}
-		if(checkIsAvanced(origin, target) != null) {
-			return checkIsAvanced(origin, target);
+		if(checkIsAdvanced(origin, target) != null) {
+			return checkIsAdvanced(origin, target);
 		}
 		if(checkBadDistance(origin,target) != null) {
 			return checkBadDistance(origin, target);
@@ -31,7 +31,7 @@ public abstract class Piece {
 		return null;
 	}
 
-	public abstract Error checkIsAvanced(Coordinate origin, Coordinate target);
+	public abstract Error checkIsAdvanced(Coordinate origin, Coordinate target);
 	public abstract Error checkBadDistance(Coordinate origin, Coordinate target);
 
 	public abstract Error checkEatingEmpty(Coordinate origin, Coordinate target, PieceProvider pieceProvider);
