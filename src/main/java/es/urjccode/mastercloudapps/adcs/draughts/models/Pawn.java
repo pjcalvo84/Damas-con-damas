@@ -35,4 +35,9 @@ public class Pawn extends Piece {
         }
         return null;
     }
+
+    @Override
+    public boolean createADraught() {
+        return true;
+    }
 }

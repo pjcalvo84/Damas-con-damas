@@ -24,6 +24,12 @@ public class GameBuilder {
             for (int y = 0; y < stringList.get(x).length(); y++) {
                 int position = characters.indexOf(String.valueOf(stringList.get(x).charAt(y)));
                 if(position != 0) {
+                    if(position == 3){
+                        Draught.addDraught(Color.WHITE);
+                    }
+                    if(position == 4){
+                        Draught.addDraught(Color.BLACK);
+                    }
                     board.put(new Coordinate(x, y), pieces[position]);
                 }
             }

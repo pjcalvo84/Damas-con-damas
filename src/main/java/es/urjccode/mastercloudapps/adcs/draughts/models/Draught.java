@@ -45,4 +45,9 @@ class Draught extends Piece {
         return null;
     }
 
+    @Override
+    public boolean createADraught() {
+        return false;
+    }
+
 }

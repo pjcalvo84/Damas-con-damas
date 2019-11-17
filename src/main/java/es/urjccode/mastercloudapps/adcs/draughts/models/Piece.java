@@ -35,6 +35,7 @@ public abstract class Piece {
 	public abstract Error checkBadDistance(Coordinate origin, Coordinate target);
 
 	public abstract Error checkEatingEmpty(Coordinate origin, Coordinate target, PieceProvider pieceProvider);
+	public abstract boolean createADraught();
 
 	boolean isLimit(Coordinate coordinate){
 		return coordinate.getRow()== 0 && this.getColor() == Color.WHITE ||

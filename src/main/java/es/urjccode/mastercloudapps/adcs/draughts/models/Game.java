@@ -47,7 +47,7 @@ public class Game {
 			this.board.remove(origin.betweenDiagonal(target));
 		}
 		this.board.move(origin, target);
-		if (this.board.getPiece(target).isLimit(target) && Draught.canCreateNewDraught(board.getPiece(target).getColor())){
+		if (wouldCreateDraught(target)){
 			Color color = board.getPiece(target).getColor();
 		    this.board.remove(target);
 			this.board.put(target, new Draught(color));
@@ -55,6 +55,11 @@ public class Game {
 		}
 		this.turn.change();
 	}
+
+	private boolean wouldCreateDraught(Coordinate target){
+	    return this.board.getPiece(target).isLimit(target) && Draught.canCreateNewDraught(board.getPiece(target).getColor())
+                && this.board.getPiece(target).createADraught();
+    }
 
 	public Error isCorrect(Coordinate origin, Coordinate target){
 		assert origin != null;
