@@ -162,6 +162,27 @@ public class GameTest {
     }
 
     @Test
+    public void testGivenGameWhenMoveDraughtToLimitThenNotError(){
+        initCountDraughts();
+        GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.
+                add("        ").
+                add("B       ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ").
+                add("        ");
+        game = gameBuilder.builder();
+        Coordinate origin = new Coordinate(1,0);
+        Coordinate target = new Coordinate(4,3);
+        game.move(origin,target);
+        assertThat(game.getPiece(origin), is(nullValue()));
+        assertThat(game.getPiece(target), instanceOf(Draught.class));
+    }
+
+    @Test
     public void testGivenGameWhenMoveTwoPanwToLimitThenTwoNewDraught(){
         initCountDraughts();
         GameBuilder gameBuilder = new GameBuilder();
