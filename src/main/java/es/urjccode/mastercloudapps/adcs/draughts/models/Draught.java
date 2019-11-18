@@ -1,62 +1,99 @@
 package es.urjccode.mastercloudapps.adcs.draughts.models;
 
-class Draught extends Piece {
+class Draught extends Piece{
 
     private static final int MAX_DISTANCE = 7;
     private static int numberWhitePieces = 0;
     private static int numberBlackPieces = 0;
 
-    Draught(Color color) {
+    Draught(final Color color){
         super(color);
     }
 
-    public static void addDraught(Color color){
-        if(color == Color.WHITE)
+    public static void addDraught(final Color color){
+        if(color == Color.WHITE){
             numberWhitePieces++;
-        else
+        }else{
             numberBlackPieces++;
+        }
     }
 
-    public static boolean canCreateNewDraught(Color color){
-        if(color == Color.WHITE)
+    public static boolean canCreateNewDraught(final Color color){
+        if(color == Color.WHITE){
             return numberWhitePieces < 2;
-        else
+        }else{
             return numberBlackPieces < 2;
+        }
     }
 
-    public static void lessDraught(Color color){
-        if(color == Color.WHITE && numberWhitePieces > 0)
+    public static void lessDraught(final Color color){
+        if(color == Color.WHITE && numberWhitePieces > 0){
             numberWhitePieces--;
-        else if(numberBlackPieces > 0)
+        }else if(numberBlackPieces > 0){
             numberBlackPieces--;
+        }
     }
 
     @Override
-    public Error checkIsAdvanced(Coordinate origin, Coordinate target) {
+    public Error checkIsAdvanced(final Coordinate origin, final Coordinate target){
         return null;
     }
 
     @Override
-    public Error checkBadDistance(Coordinate origin, Coordinate target) {
+    public Error checkBadDistance(final Coordinate origin, final Coordinate target){
         return null;
     }
 
     @Override
-    public Error checkEating(Coordinate origin, Coordinate target, PieceProvider pieceProvider) {
+    public Error checkEating(final Coordinate origin, final Coordinate target, final PieceProvider pieceProvider){
 
-        if(pieceProvider.findPieces(origin, target).size() > 1)
+        if(pieceProvider.findPieces(origin, target).size() > 1){
             return Error.BAD_EATING;
+        }
         return null;
     }
 
     @Override
-    public boolean createADraught() {
+    public boolean createADraught(){
         return false;
     }
 
     @Override
-    public int getMaxDistance() {
+    public int getMaxDistance(){
         return MAX_DISTANCE;
     }
 
+    @Override
+    public boolean canMove(final Coordinate origin, final PieceProvider pieceProvider){
+        Error error = Error.BAD_FORMAT;
+        int row = origin.getRow();
+        int column = origin.getColumn();
+        while(row > 0 && column > 0 && error != null){
+            row--;
+            column--;
+            error = this.isCorrect(origin, new Coordinate(row, column), pieceProvider);
+        }
+        row = origin.getRow();
+        column = origin.getColumn();
+        while(row > 0 && column < 7 && error != null){
+            row--;
+            column++;
+            error = this.isCorrect(origin, new Coordinate(row, column), pieceProvider);
+        }
+        row = origin.getRow();
+        column = origin.getColumn();
+        while(row < 7 && column > 0 && error != null){
+            row++;
+            column--;
+            error = this.isCorrect(origin, new Coordinate(row, column), pieceProvider);
+        }
+        row = origin.getRow();
+        column = origin.getColumn();
+        while(row < 7 && column < 7 && error != null){
+            row++;
+            column++;
+            error = this.isCorrect(origin, new Coordinate(row, column), pieceProvider);
+        }
+        return error == null;
+    }
 }

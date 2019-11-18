@@ -323,10 +323,62 @@ public class GameTest{
         assertThat(game.isPossibleMove(), is(true));
     }
 
+    @Test
+    public void shouldReturnFalseWhenCheckIsPossibleMovePawnWhite(){
+        initCountDraughts();
+        final GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.add(" n n    ").add("  b     ").add("        ").add("        ").add("        ").add("        ")
+                .add("        ").add("        ");
+        game = gameBuilder.builder();
+        assertThat(game.isPossibleMove(), is(false));
+
+    }
+
+    @Test
+    public void shouldReturnTrueWhenCheckIsPossibleEatPawnWhite(){
+        initCountDraughts();
+        final GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.add("        ").add("        ").add(" n n    ").add("  b     ").add("        ").add("        ")
+                .add("        ").add("        ");
+        game = gameBuilder.builder();
+        assertThat(game.isPossibleMove(), is(true));
+
+    }
+
     public void initCountDraughts(){
         Draught.lessDraught(Color.WHITE);
         Draught.lessDraught(Color.WHITE);
         Draught.lessDraught(Color.BLACK);
         Draught.lessDraught(Color.BLACK);
+    }
+
+    @Test
+    public void shouldReturnTrueWhenCheckIsPossibleDraughtWhiteMoveBack(){
+        initCountDraughts();
+        final GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.add("        ").add("       B").add("        ").add("        ").add("        ").add("        ")
+                .add("        ").add("        ");
+        game = gameBuilder.builder();
+        assertThat(game.isPossibleMove(), is(true));
+    }
+
+    @Test
+    public void shouldReturnTrueWhenCheckIsPossibleDraughtWhiteMoveAndEatBack(){
+        initCountDraughts();
+        final GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.add("        ").add("       B").add("        ").add("     n  ").add("        ").add("        ")
+                .add("        ").add("        ");
+        game = gameBuilder.builder();
+        assertThat(game.isPossibleMove(), is(true));
+    }
+
+    @Test
+    public void shouldReturnFalseWhenCheckIsPossibleDraughtWhite(){
+        initCountDraughts();
+        final GameBuilder gameBuilder = new GameBuilder();
+        gameBuilder.add("      n ").add("       B").add("      n ").add("     n  ").add("        ").add("        ")
+                .add("        ").add("        ");
+        game = gameBuilder.builder();
+        assertThat(game.isPossibleMove(), is(false));
     }
 }
